@@ -1,0 +1,78 @@
+body{
+    padding-top: 50px;
+}
+
+.img-icon{
+    position: relative;
+    left: 65%;
+    top: 28px;
+    z-index: 10;
+    color: #000011;
+
+}
+.img-topic{
+    height:auto;width: 100%;
+}
+.border-topic{
+    border: 2px dashed #ddd;
+   padding: 20%;
+}
+.img-icon1{
+    position: relative;
+    left: 65%;
+    top: 10px;
+    z-index: 10;
+    color: #000011;
+}
+/*发表帖子图片定位祖先*/
+.position1{
+    position: absolute;
+    top: 75%;
+
+}
+.text-title {
+    font-size: 1rem;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    /* number of lines to show */
+    max-height: 2.6em;
+    color: #666;
+}
+.text-title1 {
+    font-size: 1.2rem;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    /* number of lines to show */
+    max-height: 2.6em;
+    padding-bottom: 10px;
+
+}
+.text-one{
+
+    font-weight: normal;
+    white-space:pre;
+
+}
+.text-two{
+
+    font-weight: normal;
+    white-space:pre;
+    font-size: 14px;
+}
+.text-one-a{
+    text-decoration:none;font-size: 14px;color: #0000ed;
+}
+.padding1{
+    padding: 1px;
+}
+.hidden {
+    display: none !important;
+}

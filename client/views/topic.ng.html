@@ -1,0 +1,195 @@
+
+
+<!--头部-->
+<div class="bar bar-header bar-dark">
+    <a class="button button-clear"  href="/topic/Reply">
+        <i class="icon ion-ios-bell"></i>
+    </a>
+    <div class="h1 title">论坛</div>
+    <a class="button button-clear"  ng-click="openModal()">
+        <i class="icon ion-plus-circled"></i>
+    </a>
+</div>
+
+<!--论坛中间显示的内容-->
+<ion-content>
+    <div style="margin-top: 50px">
+
+
+        <ion-refresher
+                pulling-text="下拉刷新..."
+                on-refresh="doRefresh()">
+        </ion-refresher>
+        <div class="list card">
+
+            <div class="item item-avatar">
+                <img src="img/1.jpg">
+                <h2>杨怡</h2>
+                <p>创建 09-10</p>
+            </div>
+
+            <a class="item item-body" href="/topic/Details" ng-click="showLoading()">
+                 <span class="text-title1">
+                   我喜欢穿新衣服
+                </span>
+
+                <span class="text-title">
+                  花少许的钱,天天穿新衣服真的是太舒服了!
+                    花少许的钱,天天穿新衣服真的是太舒服了!
+                    花少许的钱,天天穿新衣服真的是太舒服了!
+                    花少许的钱,天天穿新衣服真的是太舒服了!
+                    花少许的钱,天天穿新衣服真的是太舒服了!
+                    花少许的钱,天天穿新衣服真的是太舒服了!
+                </span>
+                <div class="row "  >
+                    <div class="col">
+                        <img class="full-image" src="img/1.jpg">
+
+                    </div>
+                    <div class="col">
+                        <img class="full-image" src="img/1.jpg">
+                    </div>
+                    <div class="col">
+                        <img class="full-image" src="img/1.jpg">
+                    </div>
+                </div>
+            </a>
+
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item padding1" href="#">
+                    <i class="icon ion-eye" ></i>
+                    250
+                </a>
+
+                <a class="tab-item padding1" href="#">
+                    <i class="icon ion-chatbox" ></i>
+                   250
+                </a>
+                <a class="tab-item padding1" href="#">
+                    <i class="icon ion-thumbsup"></i>
+                    250
+                </a>
+            </div>
+
+        </div>
+        <div class="list card">
+
+            <div class="item item-avatar">
+                <img src="img/1.jpg">
+                <h2>杨怡</h2>
+                <p>创建 09-10</p>
+            </div>
+
+            <a class="item item-body" href="/topic/Details" >
+                 <span class="text-title1">
+                    我喜欢穿新衣服
+                </span>
+
+                <span class="text-title">
+                花少许的钱,天天穿新衣服真的是太舒服了!
+                    花少许的钱,天天穿新衣服真的是太舒服了!
+                    花少许的钱,天天穿新衣服真的是太舒服了!
+                    花少许的钱,天天穿新衣服真的是太舒服了!
+                    花少许的钱,天天穿新衣服真的是太舒服了!
+                    花少许的钱,天天穿新衣服真的是太舒服了!
+                </span>
+                <div class="row "  >
+                    <div class="col">
+                        <img class="full-image" src="img/1.jpg">
+
+                    </div>
+                    <div class="col">
+                        <img class="full-image" src="img/1.jpg">
+                    </div>
+                    <div class="col">
+                        <img class="full-image" src="img/1.jpg">
+                    </div>
+                </div>
+            </a>
+
+
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item padding1" href="#">
+                    <i class="icon ion-eye" ></i>
+                    250
+                </a>
+
+                <a class="tab-item padding1" href="#">
+                    <i class="icon ion-chatbox" ></i>
+                    250
+                </a>
+                <a class="tab-item padding1" href="#">
+                    <i class="icon ion-thumbsup"></i>
+                    250
+                </a>
+            </div>
+
+        </div>
+
+         <!--   <ion-infinite-scroll
+                    on-infinite="loadMore()"
+                    distance="1%"
+                    >
+            </ion-infinite-scroll>-->
+
+
+    </div>
+</ion-content>
+
+<!--
+模态框显示的代码-->
+<script id="my-modal.html" type="text/ng-template">
+    <ion-modal-view>
+        <div class="bar bar-header bar-dark">
+            <a class="button button-clear" ng-click="closeModal()">
+                <i class="icon ion-ios-close-outline"></i>
+            </a>
+            <div class="h1 title">发帖</div>
+            <a class="button button-clear" >
+                <i class="icon ion-ios-checkmark-outline"></i>
+            </a>
+        </div>
+        <ion-content>
+            <div class="content has-header">
+                <div class="list">
+                    <label class="item item-input">
+                        <input type="text" placeholder="标题">
+                    </label>
+                    <label class="item item-input" style="border-bottom: 0px solid red;">
+                        <textarea placeholder="文本" style="height: 70px; resize:none;"></textarea>
+                    </label>
+                    <div class="row " style="padding: 0px"  >
+                        <div class="col" >
+
+                           <div class="border-topic" ng-click="showAction()">
+                               <button class="button button-clear button-stable">
+                                   <i class="icon ion-plus"></i>
+                               </button>
+                           </div>
+                        </div>
+                        <div class="col" ng-click="showimgConfirm()">
+                            <img src="/img/1.jpg"  class="img-topic">
+                        </div>
+                        <div class="col">
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+                    <div class="row "  style="padding: 0px " >
+                        <div class="col">
+                        </div>
+                        <div class="col">
+                        </div>
+                        <div class="col">
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+                    <div style="border-bottom: 1px solid #ddd;"></div>
+
+                </div>
+            </div>
+        </ion-content>
+
+    </ion-modal-view>
+</script>

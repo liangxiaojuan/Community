@@ -11,3 +11,5 @@ accounts-password
 urigo:angular
 urigo:ionic
 angularui:angular-ui-router
+meteorhacks:npm
+npm-container

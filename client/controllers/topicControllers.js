@@ -2,12 +2,12 @@
  * Created by dxs on 2015-09-14.
  */
 
-angular.module("index").controller("topicCtrl", ['$scope','$ionicModal','$ionicPopup','$ionicActionSheet','$http','$ionicLoading','$timeout',
-    function ($scope , $ionicModal,$ionicPopup,$ionicActionSheet,$http,$ionicLoading,$timeout) {
+angular.module("index").controller("topicCtrl", ['$scope','$meteor','$ionicModal','$ionicPopup','$ionicActionSheet','$http','$ionicLoading','$timeout',
+    function ($scope ,$meteor, $ionicModal,$ionicPopup,$ionicActionSheet,$http,$ionicLoading,$timeout) {
 
 
-        $scope.items = [1,2,3,4,5,6,7,8,9,10];
 
+     $scope.posts = $meteor.collection(Posts).subscribe('posts');
         /**
          * 无限滚动
          */
@@ -150,6 +150,48 @@ angular.module("index").controller("topicCtrl", ['$scope','$ionicModal','$ionicP
             }, 2000);
         };
 
+        /**
+        * 新增帖子
+        */    
 
+         $scope.save = function (post) {
+              console.log(post);
+                if(!post){
+             $ionicPopup.alert({
+                title: '错误',
+                template: '您输入的话题内容不能为空!'
+            });
+                    return;
+                }
+         
+                if(!post.title){
+          $ionicPopup.alert({
+                title: '错误',
+                template: '您输入的标题内容不能为空!'
+            });
+                    return;
+                }
+                if(!post.content){
+              $ionicPopup.alert({
+                title: '错误',
+                template: '您输入的文本内容不能为空!'
+            });
+                    return;
+                }
+             
+                $meteor.call('addPosts', post).then(
+                    function (data) {
+                        if (data == 1) {
+                       $scope.modal.hide();
+                     
+                        }
+                    },
+                    function (err) {
+                     
+                        console.log(err)
+                    }
+                )
+            }
+   
     }
 ]);

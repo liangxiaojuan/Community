@@ -6,11 +6,15 @@
         <i class="icon ion-ios-bell"></i>
     </a>
     <div class="h1 title">论坛</div>
+
     <a class="button button-clear"  ng-click="openModal()">
         <i class="icon ion-plus-circled"></i>
     </a>
-</div>
 
+          <blaze-template name="loginButtons"></blaze-template>
+
+   
+</div>
 <!--论坛中间显示的内容-->
 <ion-content>
     <div style="margin-top: 50px">
@@ -20,26 +24,22 @@
                 pulling-text="下拉刷新..."
                 on-refresh="doRefresh()">
         </ion-refresher>
-        <div class="list card">
+
+        <div class="list card" ng-repeat="post in posts">
 
             <div class="item item-avatar">
                 <img src="img/1.jpg">
-                <h2>杨怡</h2>
-                <p>创建 09-10</p>
+                <h2>{{post.author}}</h2>
+                <p>创建 {{post.submitted | date:'MM.dd HH:mm'}}</p>
             </div>
 
             <a class="item item-body" href="/topic/Details" ng-click="showLoading()">
                  <span class="text-title1">
-                   我喜欢穿新衣服
+                   {{post.title}}
                 </span>
 
                 <span class="text-title">
-                  花少许的钱,天天穿新衣服真的是太舒服了!
-                    花少许的钱,天天穿新衣服真的是太舒服了!
-                    花少许的钱,天天穿新衣服真的是太舒服了!
-                    花少许的钱,天天穿新衣服真的是太舒服了!
-                    花少许的钱,天天穿新衣服真的是太舒服了!
-                    花少许的钱,天天穿新衣服真的是太舒服了!
+               {{post.content}}
                 </span>
                 <div class="row "  >
                     <div class="col">
@@ -145,18 +145,18 @@
                 <i class="icon ion-ios-close-outline"></i>
             </a>
             <div class="h1 title">发帖</div>
-            <a class="button button-clear" >
-                <i class="icon ion-ios-checkmark-outline"></i>
+            <a class="button button-clear"    ng-click="save(post)" >
+                <i class="icon ion-ios-checkmark-outline" ></i>
             </a>
         </div>
-        <ion-content>
+   
             <div class="content has-header">
                 <div class="list">
                     <label class="item item-input">
-                        <input type="text" placeholder="标题">
+                        <input type="text" placeholder="标题"  ng-model="post.title" ng-minlength="1">
                     </label>
                     <label class="item item-input" style="border-bottom: 0px solid red;">
-                        <textarea placeholder="文本" style="height: 70px; resize:none;"></textarea>
+                        <textarea placeholder="文本" style="height: 70px; resize:none;"  ng-model="post.content" ng-minlength="1"></textarea>
                     </label>
                     <div class="row " style="padding: 0px"  >
                         <div class="col" >
@@ -189,7 +189,5 @@
 
                 </div>
             </div>
-        </ion-content>
-
     </ion-modal-view>
 </script>

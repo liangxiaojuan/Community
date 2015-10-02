@@ -33,7 +33,7 @@
                 <p>创建 {{post.submitted | date:'MM.dd HH:mm'}}</p>
             </div>
 
-            <a class="item item-body" href="/topic/Details" ng-click="showLoading()">
+            <a class="item item-body" href="/topic/Details/{{post._id}}" ng-click="showLoading()">
                  <span class="text-title1">
                    {{post.title}}
                 </span>

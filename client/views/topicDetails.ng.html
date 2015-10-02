@@ -34,24 +34,17 @@
 
             <div class="item item-avatar">
                 <img src="/img/1.jpg">
-
-                        <h2>杨怡</h2>
-                <p>创建 09-05</p>
+                 <h2>{{post.author}}</h2>
+                <p>创建 {{post.submitted | date:'MM.dd HH:mm'}}</p>
             </div>
 
             <div class="item item-body">
                  <span class="text-title1">
-                    我喜欢穿新衣服
+                           {{post.title}}
                 </span>
 
                 <p >
-                   花少许的钱,天天穿新衣服真的是太舒服了!
-                    花少许的钱,天天穿新衣服真的是太舒服了!
-                    花少许的钱,天天穿新衣服真的是太舒服了!
-                    花少许的钱,天天穿新衣服真的是太舒服了!
-                    花少许的钱,天天穿新衣服真的是太舒服了!
-                    花少许的钱,天天穿新衣服真的是太舒服了!
-
+                {{post.content}}
                 </p>
 
                         <img class="full-image" src="img/1.jpg">

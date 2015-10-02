@@ -3,9 +3,15 @@
  */
 
 
-angular.module("index").controller("topicDetailsCtrl", ['$scope','$ionicPopup','$ionicActionSheet',
-    function ($scope,$ionicPopup,$ionicActionSheet) {
+angular.module("index").controller("topicDetailsCtrl", ['$scope','$ionicPopup','$ionicActionSheet', '$stateParams', '$meteor',
+    function ($scope,$ionicPopup,$ionicActionSheet, $stateParams, $meteor) {
 
+
+        /**
+        *数据处理
+        */
+                $scope.post= $meteor.object(Posts, $stateParams._id).subscribe('posts');
+                        console.log($stateParams._id);
         /**
          * 上传图片按钮
          */

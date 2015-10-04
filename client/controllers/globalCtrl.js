@@ -4,8 +4,5 @@
  */
 angular.module("myGlobal").controller("globalCtrl", ['$scope', '$stateParams', '$meteor', '$rootScope',
     function ($scope, $stateParams, $meteor, $rootScope) {
-
-
-
     }
 ]);

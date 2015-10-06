@@ -5,7 +5,8 @@
 
 
 angular.module('index', ['angular-meteor', 'ui.router','ionic']);
-angular.module('myGlobal', ['index']);
+angular.module('test', ['angular-meteor', 'ui.router','ionic']);
+angular.module('myGlobal', ['index','test']);
 
 function onReady() {
     angular.bootstrap(document, ['myGlobal']);

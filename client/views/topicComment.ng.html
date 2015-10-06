@@ -1,19 +1,12 @@
 <!--头部-->
 <div class="bar bar-header bar-dark">
-    <a class="button button-clear"  href="/topic">
+    <a class="button button-clear"  href="/topic/Details/{{content.postId}}">
         <i class="icon ion-ios-arrow-left"></i>
     </a>
     <div class="h1 title">详情</div>
 </div>
 
-<div class="bar bar-footer bar-dark item-input-inset ">
-    <label class="item-input-wrapper">
-        <input type="search" placeholder="说点什么吧" >
-    </label>
-    <button class="button button-clear" >
-        发送
-    </button>
-</div>
+
 
 <!--话题中间显示的内容-->
 <ion-content>
@@ -22,14 +15,14 @@
 
             <div class="item item-avatar">
                 <img src="img/1.jpg">
-                <h2>杨怡</h2>
-                <p>45分钟前 发表于 <a href="" class="text-one-a" >我喜欢穿好看的衣服</a></p>
+                <h2>{{comment.author}}</h2>
+                <p>{{comment.submitted | date:'MM.dd '}} 发表于 <a href="" class="text-one-a" >{{comment.postTitle}}</a></p>
             </div>
 
             <div class="item item-body">
 
                 <span class="text-two">
-                更显元 更显元 更显元 更显元 更显元 更显元 更显元 更显元 更显元 更显元 更显元 更显元 更显元 更显元 更显元
+               {{comment.content}}
                 </span>
                 <div class="row "  >
                     <div class="col">
@@ -91,3 +84,11 @@
     </div>
 </ion-content>
 
+<div class="bar bar-footer bar-dark item-input-inset ">
+    <label class="item-input-wrapper">
+        <input type="search" placeholder="说点什么吧" >
+    </label>
+    <button class="button button-clear" >
+        发送
+    </button>
+</div>

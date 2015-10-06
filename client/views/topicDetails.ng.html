@@ -12,9 +12,9 @@
         <i class="icon ion-image"></i>
     </button>
     <label class="item-input-wrapper">
-        <input type="search" placeholder="说点什么吧" >
+        <input type="search" placeholder="说点什么吧"   ng-model="comment.content" >
     </label>
-    <button class="button button-clear" >
+    <button class="button button-clear"    ng-click="addComments(comment)">
         发送
     </button>
 </div>
@@ -80,30 +80,14 @@
         </div>
         <div class="list card">
 
-            <div class="item item-avatar" href="#">
+            <a class="item item-avatar" href="/topic/Comment/{{com.id}}"  ng-repeat="com in  vm.comments">
                 <img src="/img/1.jpg">
-                <h2>Venkman</h2>
-                <p>Back off, man. I'm a scientist.</p>
-            </div>
-
-            <div class="item item-avatar" href="#">
-                <img src="/img/1.jpg">
-                <h2>Egon</h2>
-                <p>We're gonna go full stream.</p>
-            </div>
-
-            <div class="item item-avatar" href="#">
-                <img src="img/1.jpg">
-                <h2>Ray</h2>
-                <p>Ugly little spud, isn't he?</p>
-            </div>
-
-            <div class="item item-avatar" href="#">
-                <img src="img/1.jpg">
-                <h2>Winston</h2>
-                <p>That's a big Twinkie.</p>
-            </div>
-
+                <h2>{{com.author}}</h2>
+                   <p> {{com.submitted | date:'MM.dd HH:mm'}}</p>
+                      <h3 class="text-one" style="white-space:pre;">
+                {{com.content}}
+                </h3>
+            </a>
             <div class="item item-avatar" href="#">
                 <img src="img/1.jpg">
                 <h2>Tully</h2>
@@ -149,17 +133,7 @@
                 </div>
             </div>
 
-            <div class="item item-avatar" href="#">
-                <img src="/img/1.jpg">
-                <h2>Dana</h2>
-                <p>I am The Gatekeeper!</p>
-            </div>
-
-            <div class="item item-avatar" href="#">
-                <img src="/img/1.jpg">
-                <h2>Slimer</h2>
-                <p>Boo!</p>
-            </div>
+     
 
         </div>
 

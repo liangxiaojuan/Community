@@ -8,6 +8,8 @@ angular.module("index").controller("topicCtrl", ['$scope','$meteor','$ionicModal
 
 
      $scope.posts = $meteor.collection(Posts).subscribe('posts');
+     
+     console.log($scope.posts)
         /**
          * 无限滚动
          */
@@ -147,7 +149,7 @@ angular.module("index").controller("topicCtrl", ['$scope','$meteor','$ionicModal
             });
             $timeout(function () {
                 $ionicLoading.hide();
-            }, 2000);
+            }, 1000);
         };
 
         /**
@@ -181,10 +183,13 @@ angular.module("index").controller("topicCtrl", ['$scope','$meteor','$ionicModal
              
                 $meteor.call('addPosts', post).then(
                     function (data) {
-                        if (data == 1) {
-                       $scope.modal.hide();
-                     
-                        }
+             $scope.modal.hide();
+              $ionicLoading.show({
+                template: '发帖成功！'
+            });
+            $timeout(function () {
+                $ionicLoading.hide();
+            }, 1000);
                     },
                     function (err) {
                      

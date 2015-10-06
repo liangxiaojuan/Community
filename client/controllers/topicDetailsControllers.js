@@ -3,15 +3,85 @@
  */
 
 
-angular.module("index").controller("topicDetailsCtrl", ['$scope','$ionicPopup','$ionicActionSheet', '$stateParams', '$meteor',
-    function ($scope,$ionicPopup,$ionicActionSheet, $stateParams, $meteor) {
+angular.module("index").controller("topicDetailsCtrl", ['$scope', '$stateParams','$meteor','$ionicPopup','$ionicActionSheet','$state', 
+    function ($scope, $stateParams,$meteor,$ionicPopup,$ionicActionSheet,$state) {
 
 
         /**
         *数据处理
-        */
+        */      
+               var vm = $scope.vm = {};
                 $scope.post= $meteor.object(Posts, $stateParams._id).subscribe('posts');
-                        console.log($stateParams._id);
+                    
+           
+
+             $scope.comments = $meteor.collection(function() {
+                var Id =$stateParams._id ;
+              var comments= Comments.find({'postId':Id}, {
+                    sort : {submitted:-1}
+                  });
+              return  comments;
+              }).subscribe('comments');
+             vm.comments =[];
+             for (var i = 0; i < $scope.comments.length ; i++) {
+              var com= $meteor.collection(function() {
+                var Id =$scope.comments[i]._id;
+              return   Comments.find({'commentId':Id}, {
+                    sort : {submitted:-1}
+                  });
+              }).subscribe('comments');
+
+                       var comment = {};
+                         comment.id = $scope.comments[i]._id;
+                        comment.author = $scope.comments[i].author;
+                        comment.submitted = $scope.comments[i].submitted;
+                        comment.content = $scope.comments[i].content;
+                        comment.comment =com;
+                    console.log(comment)
+        
+                        vm.comments.push(comment);
+
+             };
+              console.log($scope.comments.length)
+         
+/*       var Id =$stateParams._id ;
+           var vm.comments =   $meteor.call('selectComments',Id).then(
+            function (data) {
+                vm.banner = data;
+                console.log(vm.banner);
+            },
+            function (err) {
+                console.log(err);
+            }
+        );*/
+      $scope.addComments= function (newcomment) {
+              console.log(newcomment);
+                if(!newcomment){
+             $ionicPopup.alert({
+                title: '错误',
+                template: '您输入的评论不能为空!'
+            });
+                    return;
+                }
+                   var comment = _.extend(newcomment, {
+                            postId :$stateParams._id,
+                            postTitle: $scope.post.title,
+                });
+             console.log(comment);
+                $meteor.call('addComments', comment).then(
+                    function (data) {
+                            $state.go('topicDetails',{_id:$stateParams._id})
+
+                     self.location.reload()
+                    },
+                    function (err) {
+                     
+                        console.log(err)
+                    }
+                )
+            }
+
+
         /**
          * 上传图片按钮
          */

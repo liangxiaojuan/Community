@@ -10,15 +10,28 @@ angular.module("index").config(['$urlRouterProvider', '$stateProvider', '$locati
 
                 .state('topic', {
                     url: '/topic',
-
                             templateUrl: 'client/views/topic.ng.html',
-                            controller: 'topicCtrl'
+                            controller: 'topicCtrl',
+                         resolve: {
+                          'subscribe': [
+                            '$meteor', function($meteor) {
+                              return $meteor.subscribe('posts');
+                            }
+                          ]
+                        }
 
                 })
                 .state('topicDetails', {
                     url: '/topic/Details/:_id',
                             templateUrl: 'client/views/topicDetails.ng.html',
-                            controller: 'topicDetailsCtrl'
+                            controller: 'topicDetailsCtrl',
+                              resolve: {
+                                  'subscribe': [
+                                    '$meteor', function($meteor) {
+                                      return $meteor.subscribe('comments');
+                                    }
+                                  ]
+                                }
 
                 })
                 .state('topicReply', {
@@ -28,7 +41,7 @@ angular.module("index").config(['$urlRouterProvider', '$stateProvider', '$locati
 
                 })
                 .state('topicComment', {
-                    url: '/topic/Comment',
+                    url: '/topic/Comment/:_id',
                     templateUrl: 'client/views/topicComment.ng.html',
                     controller: 'topicCommentCtrl'
 

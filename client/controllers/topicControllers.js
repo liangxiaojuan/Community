@@ -7,8 +7,12 @@ angular.module("index").controller("topicCtrl", ['$scope','$meteor','$ionicModal
 
 
 
-     $scope.posts = $meteor.collection(Posts).subscribe('posts');
      
+              $scope.posts = $meteor.collection(function() {
+              return   Posts.find({}, {
+                    sort : {submitted:-1}
+                  });
+              }).subscribe('posts');
      console.log($scope.posts)
         /**
          * 无限滚动

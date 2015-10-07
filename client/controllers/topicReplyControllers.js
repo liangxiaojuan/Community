@@ -3,35 +3,30 @@
  */
 
 
-angular.module("index").controller("topicReplyCtrl", ['$scope','$state',
-    function ($scope,$state) {
+angular.module("index").controller("topicReplyCtrl", ['$scope','$state', '$meteor',
+    function ($scope,$state,$meteor) {
+    /**
+        *数据处理
+        */      
+      
+            
+                   $scope.notifications = $meteor.collection(function() {
+                    var Id =  Meteor.user()._id;
+              var notification= Notifications.find({'postUserid':Id}, {
+                    sort : {submitted:-1}
+                  });
+              return  notification;
+              }).subscribe('notifications');
+                   console.log($scope.notifications)
 
-        $scope.gocomment= function(){
-            $state.go('topicComment');
+         
 
+
+        $scope.gocomment= function(commentId){
+            $state.go('topicComment',{_id:commentId})
         }
 
 
     }
 ]);
 
-angular.module('myGlobal')
-    .directive('myFocus', function () {
-        return {
-            restrict: 'A',
-            link: function postLink(scope, element, attrs) {
-                if (attrs.myFocus == "") {
-                    attrs.myFocus = "focusElement";
-                }
-                scope.$watch(attrs.myFocus, function(value) {
-                    if(value == attrs.id) {
-                        element[0].focus();
-                    }
-                });
-                element.on("blur", function() {
-                    scope[attrs.myFocus] = "";
-                    scope.$apply();
-                })
-            }
-        };
-    });

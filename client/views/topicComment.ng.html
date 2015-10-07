@@ -1,6 +1,6 @@
 <!--头部-->
 <div class="bar bar-header bar-dark">
-    <a class="button button-clear"  href="/topic/Details/{{content.postId}}">
+    <a class="button button-clear"  href="/topic/Details/{{comment.postId}}">
         <i class="icon ion-ios-arrow-left"></i>
     </a>
     <div class="h1 title">详情</div>
@@ -39,42 +39,29 @@
             </div>
 
             <div class="item tabs tabs-secondary tabs-icon-left">
-                <a class="tab-item padding1" href="#">
-                    <i class="icon ion-eye" ></i>
-                    250
-                </a>
+           
 
                 <a class="tab-item padding1" href="#">
                     <i class="icon ion-chatbox" ></i>
-                    250
+                  {{comments.lengtht}}
                 </a>
                 <a class="tab-item padding1" href="#">
                     <i class="icon ion-thumbsup"></i>
                     250
                 </a>
+                     <a class="tab-item padding1" href="#">
+                    <i class="icon ion-eye" ></i>
+                 
+                </a>
             </div>
-            <div class="item item-avatar" href="#">
+           <div class="item item-avatar" s  ng-repeat="com in  comments">
                 <img src="/img/1.jpg">
-                <h2>Dana</h2>
-                <p>I am The Gatekeeper!</p>
-            </div>
-
-            <div class="item item-avatar" href="#">
-                <img src="/img/1.jpg">
-                <h2>Slimer</h2>
-                <p>Boo!</p>
-            </div>
-
-            <div class="item item-avatar" href="#">
-                <img src="/img/1.jpg">
-                <h2>Dana</h2>
-                <p>I am The Gatekeeper!</p>
-            </div>
-
-            <div class="item item-avatar" href="#">
-                <img src="/img/1.jpg">
-                <h2>Slimer</h2>
-                <p>Boo!</p>
+                <h2>{{com.author}}</h2>
+                   <p> {{com.submitted | date:'MM.dd HH:mm'}}</p>
+                      <h3 class="text-one" style="white-space:pre;">
+                {{com.content}}
+                </h3>
+                            
             </div>
 
 
@@ -86,9 +73,9 @@
 
 <div class="bar bar-footer bar-dark item-input-inset ">
     <label class="item-input-wrapper">
-        <input type="search" placeholder="说点什么吧" >
+        <input type="search" placeholder="说点什么吧" ng-model="com.content" >
     </label>
-    <button class="button button-clear" >
+    <button class="button button-clear"  ng-click="addComments(com)">
         发送
     </button>
 </div>

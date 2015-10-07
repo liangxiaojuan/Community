@@ -37,13 +37,28 @@ angular.module("index").config(['$urlRouterProvider', '$stateProvider', '$locati
                 .state('topicReply', {
                     url: '/topic/Reply',
                     templateUrl: 'client/views/topicReply.ng.html',
-                    controller: 'topicReplyCtrl'
+                    controller: 'topicReplyCtrl',
+                         resolve: {
+                                  'subscribe': [
+                                    '$meteor', function($meteor) {
+                                      return $meteor.subscribe('notifications');
+                                    }
+                                  ]
+                                }
+
 
                 })
                 .state('topicComment', {
                     url: '/topic/Comment/:_id',
                     templateUrl: 'client/views/topicComment.ng.html',
-                    controller: 'topicCommentCtrl'
+                    controller: 'topicCommentCtrl',
+                          resolve: {
+                                  'subscribe': [
+                                    '$meteor', function($meteor) {
+                                      return $meteor.subscribe('comments');
+                                    }
+                                  ]
+                                }
 
                 })
 

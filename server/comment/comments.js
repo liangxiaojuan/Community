@@ -14,8 +14,25 @@ Meteor.methods({
                   praises:0
                 });
                  console.log(comment);
-                var commentId = Comments.insert(comment);
-           console.log(commentId);
+                   var commentId = Comments.insert(comment);
+                       console.log(commentId);
+                  if (comment.user_id !== user._id) {
+
+                      var notification ={
+                          comId:commentId,
+                            postUserid:comment.user_id,
+                           author: user.username,
+                            submitted: new Date(),
+                            postTitle:comment.postTitle,
+                            content:comment.content,
+                            read: false
+
+                      }
+                      console.log(notification)
+                          Notifications.insert(notification);
+                        }
+              
+       
                 return commentId  ;
               },
     

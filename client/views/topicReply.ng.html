@@ -11,18 +11,26 @@
     <div style="margin-top: 50px">
         <div class="list card">
 
-            <div class="item item-avatar"  ng-click="gocomment()">
+            <div class="item item-avatar"  ng-click="gocomment(no.comId)"   ng-repeat="no in notifications"  >
                 <img src="/img/1.jpg">
-                <h2>杨怡</h2>
+                <h2>{{no.author}}</h2>
 
-                <h3 class="text-one" style="white-space:pre;">回复
-                    <span class="text-one-a">傻逼</span>:
-                    Okay, who brought the dog?Okay, who brought the dog?Okay, who br
+                <h3 class="text-one" style="white-space:pre;"><!-- 回复 -->
+                   <!--  <span class="text-one-a">傻逼</span>: -->
+              {{ no.content}}
                 </h3>
-                <p>25分钟前</p>
-                <p>2015年9月12号</p>
+                <p>{{no.submitted | date:'MM.dd HH:mm'}}</p>
             </div>
 
+ <div class="item item-avatar"  ng-if="notifications.length == 0 " >
+              
+                <h1>
+                    您没有任何消息
+                </h1>
+
+            
+        
+            </div>
 
 
 

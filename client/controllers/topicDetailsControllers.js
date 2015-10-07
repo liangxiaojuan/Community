@@ -12,7 +12,7 @@ angular.module("index").controller("topicDetailsCtrl", ['$scope', '$stateParams'
         */      
                var vm = $scope.vm = {};
                 $scope.post= $meteor.object(Posts, $stateParams._id).subscribe('posts');
-                    
+                    console.log($scope.post)
            
 
              $scope.comments = $meteor.collection(function() {
@@ -37,12 +37,9 @@ angular.module("index").controller("topicDetailsCtrl", ['$scope', '$stateParams'
                         comment.submitted = $scope.comments[i].submitted;
                         comment.content = $scope.comments[i].content;
                         comment.comment =com;
-                    console.log(comment)
-        
                         vm.comments.push(comment);
-
              };
-              console.log($scope.comments.length)
+    
          
 /*       var Id =$stateParams._id ;
            var vm.comments =   $meteor.call('selectComments',Id).then(
@@ -66,13 +63,13 @@ angular.module("index").controller("topicDetailsCtrl", ['$scope', '$stateParams'
                    var comment = _.extend(newcomment, {
                             postId :$stateParams._id,
                             postTitle: $scope.post.title,
+                            user_id:$scope.post.userId
+                            
                 });
              console.log(comment);
                 $meteor.call('addComments', comment).then(
                     function (data) {
-                            $state.go('topicDetails',{_id:$stateParams._id})
-
-                     self.location.reload()
+                        /*    $state.go('topicDetails',{_id:$stateParams._id})*/
                     },
                     function (err) {
                      
@@ -200,6 +197,16 @@ angular.module("index").controller("topicDetailsCtrl", ['$scope', '$stateParams'
                 console.log('Tapped!', res);
             });
 
+        }
+  /**
+         * 点击发布评论
+         */
+
+        $scope.goComment = function(id){
+
+            console.log(id)
+      $state.go('topicComment',{_id:id})
+           
         }
 
 

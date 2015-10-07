@@ -15,17 +15,47 @@ Meteor.methods({
                   userId: user._id,
                   author: user.username,
                   submitted: new Date(),
-               /*   browses:0,
+                  browses:[],
                   comments:[],
-                  praises:0*/
+                  praises:[]
                 });
+                  
+
                 var postId = Posts.insert(post);
            console.log(postId);
                 return {
                   _id: postId
                 };
+              },
+    
+              'addBrowses': function (id) {
+                  console.log(id);
+                var data = Meteor.user()._id;
+                console.log(data)
+
+
+           var   browse =   Posts.findOne({'_id': id},{ fields: {browses:1,_id:0}});
+             console.log(browse)
+       
+               Posts.update({'_id': id},{ $addToSet: { browses: data}})
+    
+    
+                
+              },
+
+
+               'upPraises': function (id) {
+                  console.log(id);
+                var data = Meteor.user()._id;
+                console.log(data)
+           var   browse =   Posts.findOne({'_id': id,praises:data});
+             console.log(browse)
+             if (!browse) {
+                      Posts.update({'_id': id},{ $addToSet: { praises: data}})
+             }else  if (browse) {
+                Posts.update({'_id': id},{$pull:{praises:data}})
+             };
               }
-    
-    
+
 })
 

@@ -59,16 +59,16 @@
             <div class="item tabs tabs-secondary tabs-icon-left">
                 <a class="tab-item padding1" href="#">
                     <i class="icon ion-eye" ></i>
-                    250
+                     {{post.browses.length}}
                 </a>
 
                 <a class="tab-item padding1" href="#">
                     <i class="icon ion-chatbox" ></i>
-                    250
+                   {{comments.length}}
                 </a>
-                <a class="tab-item padding1" href="#">
+                <a class="tab-item padding1" href="#" ng-click="upPraises(post._id)">
                     <i class="icon ion-thumbsup"></i>
-                    250
+                      {{post.praises.length}}
                 </a>
                 <a class="tab-item padding1" href="#" ng-click="delsTopic()">
 

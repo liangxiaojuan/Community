@@ -69,7 +69,7 @@ angular.module("index").controller("topicDetailsCtrl", ['$scope', '$stateParams'
              console.log(comment);
                 $meteor.call('addComments', comment).then(
                     function (data) {
-                        /*    $state.go('topicDetails',{_id:$stateParams._id})*/
+                            $state.go('topicDetails',{_id:$stateParams._id})
                     },
                     function (err) {
                      
@@ -78,6 +78,22 @@ angular.module("index").controller("topicDetailsCtrl", ['$scope', '$stateParams'
                 )
             }
 
+       /**
+        * 增加点赞数，减点赞数
+        */    
+
+        $scope.upPraises = function(id) {
+            
+            console.log(id)
+            $meteor.call('upPraises', id).then(
+                    function (data) {
+                    },
+                    function (err) {
+                     
+                        console.log(err)
+                    }
+                )
+        };
 
         /**
          * 上传图片按钮

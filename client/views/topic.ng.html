@@ -26,7 +26,7 @@
                 on-refresh="doRefresh()">
         </ion-refresher>
 
-        <div class="list card" ng-repeat="post in posts">
+        <div class="list card" ng-repeat="post in vm.posts">
 
             <div class="item item-avatar">
                 <img src="img/1.jpg">
@@ -34,7 +34,7 @@
                 <p>创建 {{post.submitted | date:'MM.dd HH:mm'}}</p>
             </div>
 
-            <a class="item item-body" href="/topic/Details/{{post._id}}" ng-click="showLoading()">
+            <a class="item item-body" href="/topic/Details/{{post._id}}" ng-click="showLoading(post._id)">
                  <span class="text-title1">
                    {{post.title}}
                 </span>
@@ -57,18 +57,18 @@
             </a>
 
             <div class="item tabs tabs-secondary tabs-icon-left">
-                <a class="tab-item padding1" href="/test">
+                <a class="tab-item padding1" href="#">
                     <i class="icon ion-eye" ></i>
-                    250
+                    {{post.browses.length}}
                 </a>
 
                 <a class="tab-item padding1" href="#">
                     <i class="icon ion-chatbox" ></i>
-                   250
+                     {{post.comments}}
                 </a>
-                <a class="tab-item padding1" href="#">
+                <a class="tab-item padding1 " href="#"   ng-click="upPraises(post._id)">
                     <i class="icon ion-thumbsup"></i>
-                    250
+                   {{post.praises.length}}
                 </a>
             </div>
 

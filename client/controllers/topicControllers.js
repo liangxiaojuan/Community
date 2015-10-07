@@ -6,14 +6,35 @@ angular.module("index").controller("topicCtrl", ['$scope','$meteor','$ionicModal
     function ($scope ,$meteor, $ionicModal,$ionicPopup,$ionicActionSheet,$http,$ionicLoading,$timeout) {
 
 
-
+      var vm = $scope.vm = {};
      
               $scope.posts = $meteor.collection(function() {
               return   Posts.find({}, {
                     sort : {submitted:-1}
-                  });
+                  })
               }).subscribe('posts');
      console.log($scope.posts)
+
+
+             vm.posts =[];
+             for (var i = 0; i < $scope.posts.length ; i++) {
+              var postCom= $meteor.collection(function() {
+                var Id =$scope.posts[i]._id;
+              return   Comments.find({'postId':Id});
+              }).subscribe('comments');
+
+                       var post = {};
+                         post._id = $scope.posts[i]._id;
+                        post.author = $scope.posts[i].author;
+                        post.submitted = $scope.posts[i].submitted;
+                        post.title = $scope.posts[i].title;
+                        post.userId= $scope.posts[i].userId;
+                        post.browses = $scope.posts[i].browses;    
+                          post.content = $scope.posts[i].content;   
+                            post.praises = $scope.posts[i].praises;   
+                        post.comments=postCom.length;
+                        vm.posts.push(post);
+             };
         /**
          * 无限滚动
          */
@@ -147,15 +168,45 @@ angular.module("index").controller("topicCtrl", ['$scope','$meteor','$ionicModal
          * 等待事件
          */
 
-        $scope.showLoading = function() {
+        $scope.showLoading = function(id) {
             $ionicLoading.show({
                 template: '加载中..'
             });
+            console.log(id)
+            $meteor.call('addBrowses', id).then(
+                    function (data) {
             $timeout(function () {
                 $ionicLoading.hide();
             }, 1000);
+                    },
+                    function (err) {
+                     
+                        console.log(err)
+                    }
+                )
+            $timeout(function () {
+                $ionicLoading.hide();
+            }, 1000);   
         };
+          /**
+        * 增加点赞数，减点赞数
+        */    
 
+        $scope.upPraises = function(id) {
+            
+            console.log(id)
+            $meteor.call('upPraises', id).then(
+                    function (data) {
+                    },
+                    function (err) {
+                     
+                        console.log(err)
+                    }
+                )
+            $timeout(function () {
+                $ionicLoading.hide();
+            }, 1000);   
+        };
         /**
         * 新增帖子
         */    

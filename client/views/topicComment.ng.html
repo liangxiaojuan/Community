@@ -1,11 +1,11 @@
 <!--头部-->
 <div class="bar bar-header bar-dark">
-    <a class="button button-clear"  href="/topic/Details/{{comment.postId}}">
+    <a class="button button-clear" href="/topic/Details/{{comment.postId}}">
         <i class="icon ion-ios-arrow-left"></i>
     </a>
+
     <div class="h1 title">详情</div>
 </div>
-
 
 
 <!--话题中间显示的内容-->
@@ -15,16 +15,20 @@
 
             <div class="item item-avatar">
                 <img src="img/1.jpg">
+
                 <h2>{{comment.author}}</h2>
-                <p>{{comment.submitted | date:'MM.dd '}} 发表于 <a href="/topic/Details/{{comment.postId}}" class="text-one-a" >{{comment.postTitle}}</a></p>
+
+                <p>{{comment.submitted | date:'MM.dd '}} 发表于 <a href="/topic/Details/{{comment.postId}}"
+                                                                class="text-one-a">{{comment.postTitle}}</a></p>
             </div>
 
             <div class="item item-body">
 
                 <span class="text-two">
-               {{comment.content}}
+                    {{comment.content}}
                 </span>
-                <div class="row "  >
+
+                <div class="row ">
                     <div class="col">
                         <img class="full-image" src="img/1.jpg">
 
@@ -39,34 +43,39 @@
             </div>
 
             <div class="item tabs tabs-secondary tabs-icon-left">
-           
+
 
                 <a class="tab-item padding1" href="#">
-                    <i class="icon ion-chatbox" ></i>
-                  {{comments.length}}
+                    <i class="icon ion-chatbox"></i>
+                    {{comments.length}}
                 </a>
                 <a class="tab-item padding1" href="#" ng-click="upPraises(comment._id)">
                     <i class="icon ion-thumbsup"></i>
                     {{comment.praises.length}}
                 </a>
-                <a class="tab-item padding1" href="#" ng-click="delsComment(comment._id)" ng-if=" vm.user==comment.userId ||vm.user==comment.user_id ">
+                <a class="tab-item padding1" href="#" ng-click="delsComment(comment._id)"
+                   ng-if=" vm.user==comment.userId ||vm.user==comment.user_id ">
 
                     <i class="icon ion-trash-a"></i>
                     删除
                 </a>
             </div>
-           <div class="item item-avatar"   ng-repeat="com in  comments"  ng-click="replyComment(com.author,com.userId)">
+            <div class="item item-avatar" ng-repeat="com in  comments" ng-click="replyComment(com.author,com.userId)">
                 <img src="/img/1.jpg">
+
                 <h2>{{com.author}}</h2>
-                   <p> {{com.submitted | date:'MM.dd HH:mm'}}</p>
-               <h3 class="text-one" style="white-space:pre;" ng-if="com.replyMan"> 回复
-                   <span class="text-one-a">{{com.replyMan}}</span>:
-                   {{ com.content}}
-               </h3>
-               <h3 class="text-one" style="white-space:pre;" ng-if="!com.replyMan">
-                {{com.content}}
+
+                <p> {{com.submitted | date:'MM.dd HH:mm'}}</p>
+
+                <h3 class="text-one" style="white-space:pre;" ng-if="com.replyMan"> 回复
+                    <span class="text-one-a">{{com.replyMan}}</span>:
+                    {{ com.content}}
                 </h3>
-                            
+
+                <h3 class="text-one" style="white-space:pre;" ng-if="!com.replyMan">
+                    {{com.content}}
+                </h3>
+
             </div>
 
 
@@ -78,9 +87,9 @@
 
 <div class="bar bar-footer bar-dark item-input-inset ">
     <label class="item-input-wrapper">
-        <input type="search" placeholder="说点什么吧" ng-model="com.content" >
+        <input type="search" placeholder="说点什么吧" ng-model="com.content">
     </label>
-    <button class="button button-clear"  ng-click="addComments(com)">
+    <button class="button button-clear" ng-click="addComments(com)">
         发送
     </button>
 </div>

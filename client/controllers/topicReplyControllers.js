@@ -3,28 +3,28 @@
  */
 
 
-angular.module("index").controller("topicReplyCtrl", ['$scope','$state', '$meteor',
-    function ($scope,$state,$meteor) {
-    /**
-        *数据处理
-        */      
-      
+angular.module("index").controller("topicReplyCtrl", ['$scope', '$state', '$meteor',
+    function ($scope, $state, $meteor) {
+        /**
+         *数据处理
+         */
+
             //接收的消息
-          $scope.notifications = $meteor.collection(function() {
-                    var Id =  Meteor.user()._id;
-              var notification= Notifications.find({'postUserid':Id,'read':false}, {
-                    sort : {submitted:-1}
-                  });
-              return  notification;
-              }).subscribe('notifications');
-                   console.log($scope.notifications)
+        $scope.notifications = $meteor.collection(function () {
+            var Id = Meteor.user()._id;
+            var notification = Notifications.find({'postUserid': Id, 'read': false}, {
+                sort: {submitted: -1}
+            });
+            return notification;
+        });
+        console.log($scope.notifications)
 
 
         /**
          * 去次消息的评论处
          * @param commentId
          */
-        $scope.gocomment= function(commentId,noId){
+        $scope.gocomment = function (commentId, noId) {
             console.log(noId);
             $meteor.call('readNotification', noId).then(
                 function (data) {
@@ -36,7 +36,7 @@ angular.module("index").controller("topicReplyCtrl", ['$scope','$state', '$meteo
                     console.log(err)
                 }
             )
-            $state.go('topicComment',{_id:commentId})
+            $state.go('topicComment', {_id: commentId})
         }
 
 

@@ -1,24 +1,24 @@
 <!--头部-->
 <div class="bar bar-header bar-dark">
-    <a class="button button-clear"  href="/topic">
+    <a class="button button-clear" href="/topic">
         <i class="icon ion-ios-arrow-left"></i>
     </a>
+
     <div class="h1 title">话题</div>
 </div>
 
 
 <div class="bar bar-footer bar-dark item-input-inset ">
-    <button class="button button-clear" ng-click="showAction()" >
+    <button class="button button-clear" ng-click="showAction()">
         <i class="icon ion-image"></i>
     </button>
     <label class="item-input-wrapper">
-        <input type="search" placeholder="说点什么吧"   ng-model="comment.content" >
+        <input type="search" placeholder="说点什么吧" ng-model="comment.content">
     </label>
-    <button class="button button-clear"    ng-click="addComments(comment)">
+    <button class="button button-clear" ng-click="addComments(comment)">
         发送
     </button>
 </div>
-
 
 
 <!--话题中间显示的内容-->
@@ -30,45 +30,47 @@
                 pulling-text="下拉刷新..."
                 on-refresh="doRefresh()">
         </ion-refresher>
-        <div class="list card" >
+        <div class="list card">
 
             <div class="item item-avatar">
                 <img src="/img/1.jpg">
-                 <h2>{{post.author}}</h2>
+
+                <h2>{{post.author}}</h2>
+
                 <p>创建 {{post.submitted | date:'MM.dd HH:mm'}}</p>
             </div>
 
             <div class="item item-body">
                  <span class="text-title1">
-                           {{post.title}}
-                </span>
+                     {{post.title}}
+                 </span>
 
-                <p >
-                {{post.content}}
+                <p>
+                    {{post.content}}
                 </p>
 
-                        <img class="full-image" src="img/1.jpg">
+                <img class="full-image" src="img/1.jpg">
 
 
-                        <img class="full-image" src="img/1.jpg">
+                <img class="full-image" src="img/1.jpg">
 
-                        <img class="full-image" src="img/1.jpg">
+                <img class="full-image" src="img/1.jpg">
 
             </div>
 
             <div class="item tabs tabs-secondary tabs-icon-left">
                 <a class="tab-item padding1" href="#">
-                    <i class="icon ion-eye" ></i>
-                     {{post.browses.length}}
+                    <i class="icon ion-eye"></i>
+                    {{post.browses.length}}
                 </a>
 
                 <a class="tab-item padding1" href="#">
-                    <i class="icon ion-chatbox" ></i>
-                   {{comments.length}}
+                    <i class="icon ion-chatbox"></i>
+                    {{comments.length}}
                 </a>
                 <a class="tab-item padding1" href="#" ng-click="upPraises(post._id)">
                     <i class="icon ion-thumbsup"></i>
-                      {{post.praises.length}}
+                    {{post.praises.length}}
                 </a>
                 <a class="tab-item padding1" href="#" ng-click="delsTopic(post._id)" ng-if=" vm.user==post.userId">
 
@@ -80,49 +82,48 @@
         </div>
         <div class="list card">
 
-            <div class="item item-avatar"  ng-repeat="com in  vm.comments"  ng-click="goComment(com.id)">
+            <div class="item item-avatar" ng-repeat="com in  vm.comments" ng-click="goComment(com.id)">
                 <img src="/img/1.jpg">
+
                 <h2>{{com.author}}</h2>
-                   <p> {{com.submitted | date:'MM.dd HH:mm'}}</p>
-                      <h3 class="text-one" style="white-space:pre;">
-                {{com.content}}  
+
+                <p> {{com.submitted | date:'MM.dd HH:mm'}}</p>
+
+                <h3 class="text-one" style="white-space:pre;">
+                    {{com.content}}
                 </h3>
 
 
-                 <div class="row " style="padding: 0px"  >
+                <div class="row " style="padding: 0px">
                     <div class="col" ng-click="showimgConfirm()">
-                        <img src="/img/1.jpg"  class="img-topic">
+                        <img src="/img/1.jpg" class="img-topic">
                     </div>
                     <div class="col">
-                        <img src="/img/1.jpg"  class="img-topic">
+                        <img src="/img/1.jpg" class="img-topic">
                     </div>
                     <div class="col">
-                        <img src="/img/1.jpg"  class="img-topic">
+                        <img src="/img/1.jpg" class="img-topic">
                     </div>
                 </div>
-            <div ng-repeat=" coms in  com.comment">
-                <!-- <h3 class="text-one" style="white-space:pre;"    >
+                <div ng-repeat=" coms in  com.comment">
+                    <!-- <h3 class="text-one" style="white-space:pre;"    >
                 <a href="" class="text-one-a" >{{coms.author}}:</a>
                    {{coms.content}}</h3>-->
 
-                <h3 class="text-one" style="white-space:pre;" ng-if="coms.replyMan">
-                    <span class="text-one-a">{{coms.author}}</span>回复<span class="text-one-a">{{coms.replyMan}}</span>:{{ coms.content}}
-                </h3>
-                <h3 class="text-one" style="white-space:pre;" ng-if="!coms.replyMan">
-                    <span class="text-one-a">{{coms.author}}:</span>{{coms.content}}
-                </h3>
-            </div>
-               
+                    <h3 class="text-one" style="white-space:pre;" ng-if="coms.replyMan">
+                        <span class="text-one-a">{{coms.author}}</span>回复<span
+                            class="text-one-a">{{coms.replyMan}}</span>:{{ coms.content}}
+                    </h3>
 
+                    <h3 class="text-one" style="white-space:pre;" ng-if="!coms.replyMan">
+                        <span class="text-one-a">{{coms.author}}:</span>{{coms.content}}
+                    </h3>
                 </div>
 
+
             </div>
 
-     
-
-
-
-
+        </div>
 
 
         <!--   <ion-infinite-scroll

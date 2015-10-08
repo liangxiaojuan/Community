@@ -1,8 +1,9 @@
 <!--头部-->
 <div class="bar bar-header bar-dark">
-    <a class="button button-clear"  href="/topic">
+    <a class="button button-clear" href="/topic">
         <i class="icon ion-ios-arrow-left"></i>
     </a>
+
     <div class="h1 title">消息</div>
 </div>
 
@@ -11,32 +12,26 @@
     <div style="margin-top: 50px">
         <div class="list card">
 
-            <div class="item item-avatar"  ng-click="gocomment(no.comId,no._id)"   ng-repeat="no in notifications"  >
+            <div class="item item-avatar" ng-click="gocomment(no.comId,no._id)" ng-repeat="no in notifications">
                 <img src="/img/1.jpg">
-                <h2>{{no.author}}  于<a href="#" class="text-one-a" >{{no.postTitle}}</a></h2>
+
+                <h2>{{no.author}}  于<a href="#" class="text-one-a">{{no.postTitle}}</a></h2>
 
                 <h3 class="text-one" style="white-space:pre;"> 回复
-                     <span class="text-one-a">{{no.replyMan}}</span>:
-              {{ no.content}}
+                    <span class="text-one-a">{{no.replyMan}}</span>:
+                    {{ no.content}}
                 </h3>
+
                 <p>{{no.submitted | date:'MM.dd HH:mm'}}</p>
             </div>
 
-            <div class="item item-avatar"  ng-if="notifications.length == 0 " >
-              
+            <div class="item item-avatar" ng-if="notifications.length == 0 ">
+
                 <h1>
                     您没有任何消息
                 </h1>
-
-            
-        
             </div>
-
-
-
         </div>
-
-
     </div>
 </ion-content>
 

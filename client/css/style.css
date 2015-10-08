@@ -39,7 +39,7 @@ body{
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     /* number of lines to show */
-    max-height: 2.6em;
+
     color: #666;
 
 }
@@ -52,7 +52,6 @@ body{
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     /* number of lines to show */
-    max-height: 2.6em;
     padding-bottom: 10px;
 
 }

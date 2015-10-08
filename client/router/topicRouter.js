@@ -15,8 +15,7 @@ angular.module("index").config(['$urlRouterProvider', '$stateProvider', '$locati
                          resolve: {
                           'subscribe': [
                             '$meteor', function($meteor) {
-                                var limit = 5;
-                              return $meteor.subscribe('posts' ,{sort: {submitted: -1}, limit: limit});
+                              return $meteor.subscribe('posts'),$meteor.subscribe('comments'),$meteor.subscribe('notifications');
                             }
                           ]
                         }

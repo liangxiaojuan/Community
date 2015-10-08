@@ -2,22 +2,32 @@
  * Created by dxs on 2015-09-14.
  */
 
-angular.module("index").controller("topicCtrl", ['$scope','$meteor','$ionicModal','$ionicPopup','$ionicActionSheet','$http','$ionicLoading','$timeout',
-    function ($scope ,$meteor, $ionicModal,$ionicPopup,$ionicActionSheet,$http,$ionicLoading,$timeout) {
+angular.module("index").controller("topicCtrl", ['$scope','$meteor','$ionicModal','$ionicPopup','$ionicActionSheet','$http','$ionicLoading','$timeout','$state',
+    function ($scope ,$meteor, $ionicModal,$ionicPopup,$ionicActionSheet,$http,$ionicLoading,$timeout,$state) {
 
-
-      var vm = $scope.vm = {};
-     
+        /**
+         * 数据处理
+         * @type {{}}
+         */
+           var vm = $scope.vm = {};
+            //订阅接收话题表
               $scope.posts = $meteor.collection(function() {
               return   Posts.find({}, {
                     sort : {submitted:-1}
                   })
               }).subscribe('posts');
-     console.log($scope.posts)
+         console.log($scope.posts)
 
-
+            //分页接收话题,默认4个
              vm.posts =[];
-             for (var i = 0; i < $scope.posts.length ; i++) {
+            if($scope.posts.length>4){
+                var pag = 4;
+            }else if($scope.posts.length<=4) {
+                var pag = $scope.posts.length;
+            }
+
+        console.log(pag);
+        for (var i = 0; i <pag ; i++) {
               var postCom= $meteor.collection(function() {
                 var Id =$scope.posts[i]._id;
               return   Comments.find({'postId':Id});
@@ -34,29 +44,58 @@ angular.module("index").controller("topicCtrl", ['$scope','$meteor','$ionicModal
                             post.praises = $scope.posts[i].praises;   
                         post.comments=postCom.length;
                         vm.posts.push(post);
+
              };
+        $scope.notifications = $meteor.collection(function() {
+            var Id =  Meteor.user()._id;
+            var notification= Notifications.find({'postUserid':Id,'read':false}
+            );
+            return  notification;
+        }).subscribe('notifications');
+        console.log($scope.notifications.length)
+
         /**
          * 无限滚动
          */
         $scope.loadMore = function() {
-            $http.get('/more-items').success(function(items) {
-                $scope.items.push( $scope.items.length+1);
+            console.log(pag);
+            console.log($scope.posts.length);
+            if ( pag+1 == $scope.posts.length ) {
+                $scope.noMoreItemsAvailable = true;
+            }
+            if(pag <$scope.posts.length){
+                var p = pag ;
+
+                var postCom= $meteor.collection(function() {
+                    var Id =$scope.posts[p]._id;
+                    return   Comments.find({'postId':Id});
+                }).subscribe('comments');
+
+                var post = {};
+                post._id = $scope.posts[p]._id;
+                post.author = $scope.posts[p].author;
+                post.submitted = $scope.posts[p].submitted;
+                post.title = $scope.posts[p].title;
+                post.userId= $scope.posts[p].userId;
+                post.browses = $scope.posts[p].browses;
+                post.content = $scope.posts[p].content;
+                post.praises = $scope.posts[p].praises;
+                post.comments=postCom.length;
+                vm.posts.push(post);
+                pag++;
+
                 $scope.$broadcast('scroll.infiniteScrollComplete');
-            });
-        };
+
+            }
+
+
+        }
         /**
          * 下拉刷新
          */
         $scope.doRefresh = function () {
-            $http.get('/new-items')
-                .success(function(newItems) {
+            self.location.reload();
 
-                    $scope.items.push( $scope.items.length+1);
-                })
-                .finally(function () {
-                    // Stop the ion-refresher from spinning
-                    $scope.$broadcast('scroll.refreshComplete');
-                });
         };
         $scope.$on('stateChangeSuccess', function() {
             $scope.loadMore();
@@ -239,6 +278,7 @@ angular.module("index").controller("topicCtrl", ['$scope','$meteor','$ionicModal
                 $meteor.call('addPosts', post).then(
                     function (data) {
              $scope.modal.hide();
+                        $state.go('topicDetails',{_id:data})
               $ionicLoading.show({
                 template: '发帖成功！'
             });

@@ -4,7 +4,7 @@
 <div class="bar bar-header bar-dark">
     <a class="button button-clear"  href="/topic/Reply">
         <i class="icon ion-ios-bell"></i>
-           <div class="notifications"></div>
+           <div class="notifications" ng-if="notifications.length!=0"></div>
     </a>
     <div class="h1 title">论坛</div>
 
@@ -31,7 +31,7 @@
             <div class="item item-avatar">
                 <img src="img/1.jpg">
                 <h2>{{post.author}}</h2>
-                <p>创建 {{post.submitted | date:'MM.dd HH:mm'}}</p>
+                <p>创建于{{post.submitted | date:'MM.dd HH:mm'}}</p>
             </div>
 
             <a class="item item-body" href="/topic/Details/{{post._id}}" ng-click="showLoading(post._id)">
@@ -73,7 +73,7 @@
             </div>
 
         </div>
-        <div class="list card">
+       <!-- <div class="list card">
 
             <div class="item item-avatar">
                 <img src="img/1.jpg">
@@ -125,7 +125,7 @@
                 </a>
             </div>
 
-        </div>
+        </div>-->
 
          <!--   <ion-infinite-scroll
                     on-infinite="loadMore()"
@@ -134,7 +134,9 @@
             </ion-infinite-scroll>-->
 
 
+
     </div>
+    <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadMore()" distance="10%"></ion-infinite-scroll>
 </ion-content>
 
 <!--

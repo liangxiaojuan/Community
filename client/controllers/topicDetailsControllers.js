@@ -3,18 +3,19 @@
  */
 
 
-angular.module("index").controller("topicDetailsCtrl", ['$scope', '$stateParams','$meteor','$ionicPopup','$ionicActionSheet','$state', 
-    function ($scope, $stateParams,$meteor,$ionicPopup,$ionicActionSheet,$state) {
+angular.module("index").controller("topicDetailsCtrl", ['$scope', '$stateParams','$meteor','$ionicPopup','$ionicActionSheet','$state', '$ionicLoading','$timeout',
+    function ($scope, $stateParams,$meteor,$ionicPopup,$ionicActionSheet,$state,$ionicLoading,$timeout) {
 
 
         /**
         *数据处理
         */      
                var vm = $scope.vm = {};
+                //根据$stateParams._id 查询的帖子
                 $scope.post= $meteor.object(Posts, $stateParams._id).subscribe('posts');
                     console.log($scope.post)
-           
-
+                    vm.user = Meteor.user()._id;
+                // 根据$stateParams._id 查询的评论
              $scope.comments = $meteor.collection(function() {
                 var Id =$stateParams._id ;
               var comments= Comments.find({'postId':Id}, {
@@ -22,6 +23,7 @@ angular.module("index").controller("topicDetailsCtrl", ['$scope', '$stateParams'
                   });
               return  comments;
               }).subscribe('comments');
+                //默认把评论的评论遍历出来.
              vm.comments =[];
              for (var i = 0; i < $scope.comments.length ; i++) {
               var com= $meteor.collection(function() {
@@ -39,18 +41,12 @@ angular.module("index").controller("topicDetailsCtrl", ['$scope', '$stateParams'
                         comment.comment =com;
                         vm.comments.push(comment);
              };
-    
-         
-/*       var Id =$stateParams._id ;
-           var vm.comments =   $meteor.call('selectComments',Id).then(
-            function (data) {
-                vm.banner = data;
-                console.log(vm.banner);
-            },
-            function (err) {
-                console.log(err);
-            }
-        );*/
+
+
+        /**
+         * 增加评论
+         * @param newcomment
+         */
       $scope.addComments= function (newcomment) {
               console.log(newcomment);
                 if(!newcomment){
@@ -63,13 +59,20 @@ angular.module("index").controller("topicDetailsCtrl", ['$scope', '$stateParams'
                    var comment = _.extend(newcomment, {
                             postId :$stateParams._id,
                             postTitle: $scope.post.title,
-                            user_id:$scope.post.userId
+                            user_id:$scope.post.userId,
+                            replyMan:$scope.post.author
                             
                 });
              console.log(comment);
                 $meteor.call('addComments', comment).then(
                     function (data) {
-                            $state.go('topicDetails',{_id:$stateParams._id})
+                        $ionicLoading.show({
+                            template: '评论成功'
+                        });
+                        $state.go('topicComment',{_id:data})
+                        $timeout(function () {
+                            $ionicLoading.hide();
+                        }, 800);
                     },
                     function (err) {
                      
@@ -131,7 +134,7 @@ angular.module("index").controller("topicDetailsCtrl", ['$scope', '$stateParams'
             /**
              * 删除话题
              */
-            $scope.delsTopic  =  function() {
+            $scope.delsTopic  =  function(id) {
                 console.log('a');
                 var confirmPopup = $ionicPopup.confirm({
                     title: '确定删除这个话题吗?',
@@ -143,6 +146,19 @@ angular.module("index").controller("topicDetailsCtrl", ['$scope', '$stateParams'
                             type: 'button-dark',
                             onTap: function(e) {
                                 //这里操作确定后的
+                                console.log(id);
+                                $meteor.call('delsTopic', id).then(
+                                    function (data) {
+                                        console.log(data);
+                                        if(data ==1){
+                                            $state.go('topic')
+                                        }
+                                    },
+                                    function (err) {
+
+                                        console.log(err)
+                                    }
+                                )
                             }
                         }
                     ]

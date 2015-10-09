@@ -14,7 +14,9 @@ angular.module("index").controller("topicDetailsCtrl", ['$scope', '$stateParams'
         //根据$stateParams._id 查询的帖子
         $scope.post = $meteor.object(Posts, $stateParams._id).subscribe('posts');
         console.log($scope.post)
-        vm.user = Meteor.user()._id;
+        if( Meteor.user()){
+            vm.user = Meteor.user()._id;
+        }
         // 根据$stateParams._id 查询的评论
         $scope.comments = $meteor.collection(function () {
             var Id = $stateParams._id;
@@ -41,8 +43,6 @@ angular.module("index").controller("topicDetailsCtrl", ['$scope', '$stateParams'
             comment.comment = com;
             vm.comments.push(comment);
         }
-        ;
-
 
         /**
          * 增加评论
@@ -221,7 +221,6 @@ angular.module("index").controller("topicDetailsCtrl", ['$scope', '$stateParams'
                         onTap: function (e) {
                             e.preventDefault();
                             //这里写对评论的操作,用ng-model来拿值
-
                         }
                     }
                 ]

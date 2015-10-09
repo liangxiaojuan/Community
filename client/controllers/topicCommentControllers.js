@@ -9,10 +9,11 @@ angular.module("index").controller("topicCommentCtrl", ['$scope', '$stateParams'
          *数据处理
          */
         var vm = $scope.vm = {};
-        vm.user = Meteor.user()._id;
+        if( Meteor.user()){
+            vm.user = Meteor.user()._id;
+        }
         $scope.comment = $meteor.object(Comments, $stateParams._id);
         console.log($scope.comment);
-
         var postid = $scope.comment.postId
         $scope.comments = $meteor.collection(function () {
             var Id = $stateParams._id;

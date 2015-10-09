@@ -50,13 +50,16 @@ angular.module("index").controller("topicCtrl", ['$scope', '$meteor', '$ionicMod
 
         }
         ;
-        $scope.notifications = $meteor.collection(function () {
-            var Id = Meteor.user()._id;
-            var notification = Notifications.find({'postUserid': Id, 'read': false}
-            );
-            return notification;
-        })
-        console.log($scope.notifications.length)
+        if(Meteor.user()){
+            $scope.notifications = $meteor.collection(function () {
+                var Id = Meteor.user()._id;
+                var notification = Notifications.find({'postUserid': Id, 'read': false}
+                );
+                return notification;
+            })
+            console.log($scope.notifications.length)
+        }
+
 
         /**
          * 无限滚动

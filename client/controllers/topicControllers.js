@@ -2,8 +2,8 @@
  * Created by dxs on 2015-09-14.
  */
 
-angular.module("index").controller("topicCtrl", ['$scope', '$meteor', '$ionicModal', '$ionicPopup', '$ionicActionSheet', '$http', '$ionicLoading', '$timeout', '$state',
-    function ($scope, $meteor, $ionicModal, $ionicPopup, $ionicActionSheet, $http, $ionicLoading, $timeout, $state) {
+angular.module("index").controller("topicCtrl", ['$scope', '$meteor',  '$ionicPopup', '$ionicActionSheet', '$http', '$ionicLoading', '$timeout', '$state',
+    function ($scope, $meteor, $ionicPopup, $ionicActionSheet, $http, $ionicLoading, $timeout, $state) {
 
         /**
          * 数据处理
@@ -108,111 +108,6 @@ angular.module("index").controller("topicCtrl", ['$scope', '$meteor', '$ionicMod
             $scope.loadMore();
         });
 
-
-        $ionicModal.fromTemplateUrl('my-modal.html', {
-            scope: $scope,
-            animation: 'slide-in-up'
-        }).then(function (modal) {
-            $scope.modal = modal;
-        });
-        /**
-         * 打开模态框
-         */
-        $scope.openModal = function () {
-            $scope.modal.show();
-        };
-
-
-        /**
-         * 放弃编辑
-         */
-        $scope.closeModal = function () {
-
-            var confirmPopup = $ionicPopup.confirm({
-                title: '确定放弃编辑退出?',
-                scope: $scope,
-                buttons: [
-                    {text: '取消'},
-                    {
-                        text: '<b>确定</b>',
-                        type: 'button-dark',
-                        onTap: function () {
-                            $scope.modal.hide();
-                        }
-                    }
-                ]
-            });
-            confirmPopup.then(function (res) {
-                if (res) {
-                    console.log('You are sure');
-                } else {
-                    console.log('You are not sure');
-                }
-            });
-
-        };
-
-
-        /**
-         * 图片单个删除
-         */
-        $scope.showimgConfirm = function () {
-            var confirmPopup = $ionicPopup.confirm({
-                title: '确定删除图片吗?',
-                scope: $scope,
-                buttons: [
-                    {text: '取消'},
-                    {
-                        text: '<b>确定</b>',
-                        type: 'button-dark',
-                        onTap: function (e) {
-                            //这里操作确定后的
-                        }
-                    }
-                ]
-            });
-            confirmPopup.then(function (res) {
-                if (res) {
-                    console.log('You are sure');
-                } else {
-                    console.log('You are not sure');
-                }
-            });
-        };
-        /**
-         * 上传图片按钮
-         */
-        $scope.showAction = function () {
-
-            // Show the action sheet
-            var hideSheet = $ionicActionSheet.show({
-                buttons: [
-                    {
-                        text: '拍照',
-                        onTap: function (e) {
-                            //这里操作确定后的
-                            hideSheet();
-                        }
-                    },
-                    {
-                        text: '相册',
-                        onTap: function (e) {
-                            //这里操作确定后的
-                            hideSheet();
-                        }
-                    }
-                ],
-                cancelText: '取消',
-                cancel: function () {
-                    // add cancel code..
-                },
-                buttonClicked: function (index) {
-                    return true;
-                }
-            });
-
-
-        };
         /**
          * 等待事件
          */
@@ -256,52 +151,7 @@ angular.module("index").controller("topicCtrl", ['$scope', '$meteor', '$ionicMod
                 $ionicLoading.hide();
             }, 1000);
         };
-        /**
-         * 新增帖子
-         */
 
-        $scope.save = function (post) {
-            console.log(post);
-            if (!post) {
-                $ionicPopup.alert({
-                    title: '错误',
-                    template: '您输入的话题内容不能为空!'
-                });
-                return;
-            }
-
-            if (!post.title) {
-                $ionicPopup.alert({
-                    title: '错误',
-                    template: '您输入的标题内容不能为空!'
-                });
-                return;
-            }
-            if (!post.content) {
-                $ionicPopup.alert({
-                    title: '错误',
-                    template: '您输入的文本内容不能为空!'
-                });
-                return;
-            }
-
-            $meteor.call('addPosts', post).then(
-                function (data) {
-                    $scope.modal.hide();
-                    $state.go('topicDetails', {_id: data})
-                    $ionicLoading.show({
-                        template: '发帖成功！'
-                    });
-                    $timeout(function () {
-                        $ionicLoading.hide();
-                    }, 1000);
-                },
-                function (err) {
-
-                    console.log(err)
-                }
-            )
-        }
 
     }
 ]);

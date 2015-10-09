@@ -21,6 +21,11 @@ angular.module("index").config(['$urlRouterProvider', '$stateProvider', '$locati
                     }
 
                 })
+                .state('addTopic', {
+                    url: '/addTopic',
+                    templateUrl: 'client/views/addTopic.ng.html',
+                    controller: 'addTopicCtrl'
+                })
                 .state('topicDetails', {
                     url: '/topic/Details/:_id',
                     templateUrl: 'client/views/topicDetails.ng.html',

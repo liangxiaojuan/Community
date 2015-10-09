@@ -8,7 +8,7 @@
 
     <div class="h1 title">论坛</div>
 
-    <a class="button button-clear" ng-click="openModal()">
+    <a class="button button-clear" href="/addTopic">
         <i class="icon ion-plus-circled"></i>
     </a>
 
@@ -141,61 +141,3 @@
     <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadMore()" distance="10%"></ion-infinite-scroll>
 </ion-content>
 
-<!--
-模态框显示的代码-->
-<script id="my-modal.html" type="text/ng-template">
-    <ion-modal-view>
-        <div class="bar bar-header bar-dark">
-            <a class="button button-clear" ng-click="closeModal()">
-                <i class="icon ion-ios-close-outline"></i>
-            </a>
-
-            <div class="h1 title">发帖</div>
-            <a class="button button-clear" ng-click="save(post)">
-                <i class="icon ion-ios-checkmark-outline"></i>
-            </a>
-        </div>
-
-        <div class="content has-header">
-            <div class="list">
-                <label class="item item-input">
-                    <input type="text" placeholder="标题" ng-model="post.title" ng-minlength="1">
-                </label>
-                <label class="item item-input" style="border-bottom: 0px solid red;">
-                    <textarea placeholder="文本" style="height: 70px; resize:none;" ng-model="post.content"
-                              ng-minlength="1"></textarea>
-                </label>
-
-                <div class="row " style="padding: 0px">
-                    <div class="col">
-
-                        <div class="border-topic" ng-click="showAction()">
-                            <button class="button button-clear button-stable">
-                                <i class="icon ion-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col" ng-click="showimgConfirm()">
-                        <img src="/img/1.jpg" class="img-topic">
-                    </div>
-                    <div class="col">
-                    </div>
-                    <div class="col">
-                    </div>
-                </div>
-                <div class="row " style="padding: 0px ">
-                    <div class="col">
-                    </div>
-                    <div class="col">
-                    </div>
-                    <div class="col">
-                    </div>
-                    <div class="col">
-                    </div>
-                </div>
-                <div style="border-bottom: 1px solid #ddd;"></div>
-
-            </div>
-        </div>
-    </ion-modal-view>
-</script>

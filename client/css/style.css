@@ -94,3 +94,10 @@ body{
 .tab-item-color1{
     color:red;
 }
+.col-xs-4{
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 25%;
+}
